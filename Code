@@ -1,0 +1,48 @@
+/*In this question  we have to find the minimum number of the bracket that are neeed to reversal in order to
+make a perfect pair of the bracket. we have only curly braces in this question*/
+
+#include<stack>   //Include this library because we have to use this in our question
+#include<string.h>  //Use to find the length of the string so that we can make our first base case
+int countBracketReversals(string input) {
+	/*First base here we have to return -1 as per question. if the string 
+    length is odd then one bracket remain without pairing so we can't make this string a perfect pairs of bracket*/
+    if(input.length()%2!=0){
+        return -1;
+    }
+    //cout variable that will count the number how many times we have to reverse a bracket
+    int count = 0;
+    //Initializing character stack 
+    stack<char> s;
+    //Initiliazing for loop
+    for(int i = 0; input[i]!='\0';i++){
+        //if the stack is empty then insert the element whaterver it may be
+        if(s.empty()){
+          s.push(input[i]);
+      }
+        //else case
+        else{
+            //nesting inside it
+            
+            if(input[i]=='}' && s.top()=='{') // Case -> {}
+                s.pop();
+            
+            else{
+                
+            s.push(input[i]);
+        }
+        } 
+    }
+        
+    while(!s.empty()){
+        char a = s.top();
+        s.pop(); 
+        char b = s.top();
+        s.pop();
+        if(a ==  b ){
+            count++;
+        } else {
+            count+=2;
+        }
+    }
+    return count;
+    }
